@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Paletas de Colores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Paletas de Colores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Botón de favoritos en esquina superior izquierda -->
+    <button onclick="toggleFavoritos()" class="favoritos-btn-flotante">
+        ❤️ Favoritos
+    </button>
+
+    <div class="container">
+        <h1>🎨 Generador de Paletas de Colores</h1>
+        <p>Haz clic en cualquier color para copiar su código HEX • Inspiración para diseñadores</p>
+        
+        <div id="paleta" class="paleta"></div>
+        
+        <button onclick="generarPaleta()" class="generate-btn">
+            🎲 Generar Nueva Paleta
+        </button>
+        
+        <div id="mensaje" class="mensaje"></div>
+    </div>
+
+    <!-- Panel lateral de favoritos -->
+    <div id="panelFavoritos" class="panel-favoritos">
+        <div class="panel-header">
+            <h3>❤️ Colores Favoritos</h3>
+            <button onclick="toggleFavoritos()" class="cerrar-btn">×</button>
+        </div>
+        <div id="listaFavoritos" class="lista-favoritos">
+            <!-- Aquí se mostrarán los colores favoritos -->
+        </div>
+        <div class="panel-actions">
+            <button onclick="limpiarFavoritos()" class="limpiar-btn">Limpiar Todo</button>
+        </div>
+    </div>
+
+    <!-- Overlay para cerrar panel -->
+    <div id="overlay" class="overlay" onclick="toggleFavoritos()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+    <script src="script.js"></script>
+</body>
+</html>
