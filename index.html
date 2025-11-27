@@ -7,31 +7,135 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Paletas de Colores</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Botón de favoritos en esquina superior izquierda -->
+    <!-- Botones flotantes en esquina superior -->
     <button onclick="toggleFavoritos()" class="favoritos-btn-flotante">
         ❤️ Favoritos
     </button>
-
-    <div class="container">
-        <h1>🎨 Generador de Paletas de Colores</h1>
-        <p>Haz clic en cualquier color para copiar su código HEX • Inspiración para diseñadores</p>
-        
-        <div id="paleta" class="paleta"></div>
-        
-        <button onclick="generarPaleta()" class="generate-btn">
-            🎲 Generar Nueva Paleta
+    
+    <!-- Botón Modo Claro/Oscuro -->
+    <button onclick="toggleModo()" class="modo-btn">
+        🌙 Modo Navideño
+    </button>
+    
+    <div class="nav-buttons">
+        <button onclick="irAPrincipal()" class="nav-btn principal-btn activo">
+            🎲 Generador Principal
         </button>
-        
-        <div id="mensaje" class="mensaje"></div>
+        <button onclick="irAPersonalizado()" class="nav-btn personalizado-btn">
+            🎨 Personalizado
+        </button>
+    </div>
+
+    <!-- Página Principal -->
+    <div id="paginaPrincipal" class="pagina activa">
+        <div class="container">
+            <h1>🎄 Generador de Paletas de Colores</h1>
+            <p>Haz clic en cualquier color para copiar su código HEX • Inspiración para diseñadores</p>
+            
+            <div id="paleta" class="paleta"></div>
+            
+            <button onclick="generarPaleta()" class="generate-btn">
+                🎲 Generar Nueva Paleta
+            </button>
+            
+            <div id="mensaje" class="mensaje"></div>
+        </div>
+    </div>
+
+    <!-- Página Personalizada -->
+    <div id="paginaPersonalizada" class="pagina">
+        <div class="container">
+            <h1>🎨 Generador Personalizado</h1>
+            <p>Crea paletas únicas basadas en tus colores favoritos</p>
+
+            <!-- Selección de Colores Base -->
+            <div class="seleccion-colores">
+                <h3>🎯 Selecciona tus Colores Base (2-3)</h3>
+                <div class="selectores-colores">
+                    <div class="selector-color">
+                        <input type="color" id="color1" value="#ff6b6b" class="input-color">
+                        <input type="text" id="color1Hex" value="#FF6B6B" class="input-hex" readonly>
+                    </div>
+                    <div class="selector-color">
+                        <input type="color" id="color2" value="#4ecdc4" class="input-color">
+                        <input type="text" id="color2Hex" value="#4ECDC4" class="input-hex" readonly>
+                    </div>
+                    <div class="selector-color">
+                        <input type="color" id="color3" value="#45b7d1" class="input-color">
+                        <input type="text" id="color3Hex" value="#45B7D1" class="input-hex" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etiquetas de Paleta -->
+            <div class="etiquetas-paleta">
+                <h3>🏷️ Elige el Estilo de tu Paleta</h3>
+                <div class="etiquetas-container">
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="armoniosa" checked>
+                        <span>🎭 Armoniosa</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="corporativa">
+                        <span>🏢 Corporativa</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="natural">
+                        <span>🌿 Natural</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="contraste">
+                        <span>🔊 Alto Contraste</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="pastel">
+                        <span>🥰 Pastel</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="minima">
+                        <span>⚫ Mínima</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="calida">
+                        <span>🔥 Cálida</span>
+                    </label>
+                    <label class="etiqueta">
+                        <input type="checkbox" name="etiqueta" value="fria">
+                        <span>❄️ Fría</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Ajustes Avanzados -->
+            <div class="ajustes-avanzados">
+                <h3>⚙️ Ajustes Avanzados</h3>
+                <div class="controles-ajustes">
+                    <div class="control">
+                        <label>Saturación:</label>
+                        <input type="range" id="saturacion" min="0" max="100" value="50" class="slider">
+                        <span id="saturacionValor">50%</span>
+                    </div>
+                    <div class="control">
+                        <label>Luminosidad:</label>
+                        <input type="range" id="luminosidad" min="0" max="100" value="50" class="slider">
+                        <span id="luminosidadValor">50%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón Generar -->
+            <button onclick="generarPaletaPersonalizada()" class="generate-btn personalizado-generar-btn">
+                🎨 Generar Paletas Personalizadas
+            </button>
+
+            <!-- Resultados -->
+            <div id="resultadosPersonalizados" class="resultados-personalizados">
+                <h3>✨ Tus Paletas Generadas</h3>
+                <div id="paletasContainer" class="paletas-container">
+                    <p class="mensaje-vacio">Selecciona colores y genera tus paletas personalizadas</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Panel lateral de favoritos -->
@@ -40,9 +144,7 @@
             <h3>❤️ Colores Favoritos</h3>
             <button onclick="toggleFavoritos()" class="cerrar-btn">×</button>
         </div>
-        <div id="listaFavoritos" class="lista-favoritos">
-            <!-- Aquí se mostrarán los colores favoritos -->
-        </div>
+        <div id="listaFavoritos" class="lista-favoritos"></div>
         <div class="panel-actions">
             <button onclick="limpiarFavoritos()" class="limpiar-btn">Limpiar Todo</button>
         </div>
@@ -51,9 +153,9 @@
     <!-- Overlay para cerrar panel -->
     <div id="overlay" class="overlay" onclick="toggleFavoritos()"></div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- Contenedor para partículas navideñas -->
+    <div id="particulasNavidenas" class="particulas-navidenas"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
