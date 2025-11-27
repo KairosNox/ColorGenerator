@@ -1,4 +1,4 @@
-/* Estilos generales con decoración */
+/* ==================== ESTILOS GENERALES ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +6,27 @@
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
     position: relative;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
 }
 
-/* Botón de favoritos flotante */
+/* ==================== MODO NAVIDEÑO ==================== */
+body.modo-navideno {
+    background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+    animation: fondoNavideno 10s ease infinite;
+}
+
+@keyframes fondoNavideno {
+    0%, 100% { background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); }
+    50% { background: linear-gradient(135deg, #b21f1f 0%, #fdbb2d 50%, #1a2a6c 100%); }
+}
+
+/* ==================== BOTONES FLOTANTES ==================== */
 .favoritos-btn-flotante {
     position: fixed;
     top: 20px;
@@ -26,31 +39,176 @@ body {
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
     z-index: 100;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
+body.modo-navideno .favoritos-btn-flotante {
+    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.6);
+}
+
 .favoritos-btn-flotante:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
 }
 
-.container {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+/* Botón Modo Claro/Oscuro */
+.modo-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    z-index: 100;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Título decorado */
+body.modo-navideno .modo-btn {
+    background: linear-gradient(45deg, #228B22, #006400);
+    box-shadow: 0 5px 15px rgba(34, 139, 34, 0.6);
+}
+
+.modo-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+body.modo-navideno .modo-btn:hover {
+    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.8);
+}
+
+/* ==================== NAVEGACIÓN CENTRADA ==================== */
+.nav-buttons {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 100;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.modo-navideno .nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn.activo {
+    background: linear-gradient(45deg, #FF6B6B, #EE5A24);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+body.modo-navideno .nav-btn.activo {
+    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.6);
+}
+
+.principal-btn.activo {
+    background: linear-gradient(45deg, #FF6B6B, #EE5A24);
+}
+
+body.modo-navideno .principal-btn.activo {
+    background: linear-gradient(45deg, #C41E3A, #8B0000);
+}
+
+.personalizado-btn.activo {
+    background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+}
+
+body.modo-navideno .personalizado-btn.activo {
+    background: linear-gradient(45deg, #228B22, #006400);
+}
+
+/* ==================== CONTAINER PRINCIPAL ==================== */
+.container {
+    text-align: center;
+    max-width: 900px;
+    margin: 100px auto 20px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 40px 30px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s ease;
+}
+
+body.modo-navideno .container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
+}
+
+/* Efectos de brillo navideño */
+body.modo-navideno .container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #C41E3A, #228B22, #FFD700, #C41E3A);
+    border-radius: 27px;
+    z-index: -1;
+    animation: brilloBorde 3s linear infinite;
+    background-size: 400%;
+}
+
+@keyframes brilloBorde {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body.modo-navideno .container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    z-index: -1;
+}
+
+/* ==================== TIPOGRAFÍA ==================== */
 h1 {
     background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
     -webkit-background-clip: text;
@@ -58,21 +216,41 @@ h1 {
     color: transparent;
     font-size: 2.5em;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.5s ease;
+}
+
+body.modo-navideno h1 {
+    background: linear-gradient(45deg, #C41E3A, #228B22, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: tituloNavideno 3s ease-in-out infinite;
+}
+
+@keyframes tituloNavideno {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg); }
 }
 
 p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.1em;
     margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    transition: all 0.5s ease;
 }
 
-/* Paleta de colores mejorada */
+body.modo-navideno p {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* ==================== PALETA DE COLORES ==================== */
 .paleta {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     margin: 40px 0;
     transition: all 0.3s ease;
 }
@@ -89,15 +267,15 @@ p {
 }
 
 .color-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 15px;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 3px solid white;
+    border: 3px solid rgba(255, 255, 255, 0.5);
     box-shadow: 
-        0 5px 15px rgba(0,0,0,0.2),
-        inset 0 1px 0 rgba(255,255,255,0.3);
+        0 8px 25px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.4);
     position: relative;
     overflow: hidden;
 }
@@ -108,9 +286,10 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5em;
+    font-size: 1.8em;
     opacity: 0;
     transition: opacity 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .color-box:hover::after {
@@ -120,22 +299,24 @@ p {
 .color-box:hover {
     transform: scale(1.1) rotate(2deg);
     box-shadow: 
-        0 8px 25px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.4);
+        0 12px 35px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 .color-info {
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 12px;
     font-weight: bold;
-    color: #333;
-    background: rgba(255,255,255,0.8);
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(0,0,0,0.1);
+    color: white;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 15px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Botón decorado */
+/* ==================== BOTONES ==================== */
 .generate-btn {
     background: linear-gradient(45deg, #FF6B6B, #EE5A24);
     color: white;
@@ -145,10 +326,21 @@ p {
     cursor: pointer;
     font-size: 1.1em;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 5px 15px rgba(255,107,107,0.4);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+body.modo-navideno .generate-btn {
+    background: linear-gradient(45deg, #C41E3A, #8B0000);
+    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.6);
+}
+
+body.modo-navideno .generate-btn:hover {
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.8);
 }
 
 .generate-btn::before {
@@ -167,7 +359,7 @@ p {
 }
 
 .generate-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(255,107,107,0.6);
 }
 
@@ -175,36 +367,39 @@ p {
     transform: translateY(-1px);
 }
 
-/* Mensaje mejorado */
+/* ==================== MENSAJES ==================== */
 .mensaje {
     margin-top: 20px;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 15px;
     display: none;
     font-weight: bold;
     animation: slideIn 0.3s ease;
     transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .mensaje.show {
     display: block;
-    background: linear-gradient(45deg, #4CAF50, #45a049);
+    background: linear-gradient(45deg, rgba(76,175,80,0.8), rgba(69,160,73,0.8));
     color: white;
     box-shadow: 0 5px 15px rgba(76,175,80,0.3);
 }
 
-/* Botón de like en los colores */
+/* ==================== BOTONES DE LIKE ==================== */
 .btn-like {
     background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    margin-top: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin-top: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
 }
 
 .btn-like:hover {
@@ -218,23 +413,34 @@ p {
     transform: scale(1.1);
 }
 
-/* Panel lateral de favoritos */
+/* ==================== PANEL DE FAVORITOS ==================== */
 .panel-favoritos {
     position: fixed;
     top: 0;
-    right: -400px;
+    left: -400px;
     width: 350px;
     height: 100vh;
-    background: white;
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease, transform 0.3s ease;
+    background: rgba(44, 62, 80, 0.95);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1000;
     display: flex;
     flex-direction: column;
+    transform: translateX(-20px);
+    opacity: 0;
+    backdrop-filter: blur(25px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.modo-navideno .panel-favoritos {
+    background: rgba(139, 0, 0, 0.95);
+    border-right: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .panel-favoritos.abierto {
-    right: 0;
+    left: 0;
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .panel-header {
@@ -244,6 +450,11 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+body.modo-navideno .panel-header {
+    background: linear-gradient(45deg, #C41E3A, #8B0000);
 }
 
 .panel-header h3 {
@@ -263,41 +474,77 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .cerrar-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .lista-favoritos {
     flex: 1;
     padding: 15px;
     overflow-y: auto;
-    background: #f8f9fa;
+    background: rgba(52, 73, 94, 0.8);
+}
+
+body.modo-navideno .lista-favoritos {
+    background: rgba(178, 34, 34, 0.8);
 }
 
 .color-favorito {
     display: flex;
     align-items: center;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
     padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: slideInFavorito 0.5s ease forwards;
+    opacity: 0;
+    transform: translateX(-30px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.modo-navideno .color-favorito {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .color-favorito:hover {
-    transform: translateX(-5px);
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.15);
 }
 
+@keyframes slideInFavorito {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación escalonada para favoritos */
+.color-favorito:nth-child(1) { animation-delay: 0.1s; }
+.color-favorito:nth-child(2) { animation-delay: 0.2s; }
+.color-favorito:nth-child(3) { animation-delay: 0.3s; }
+.color-favorito:nth-child(4) { animation-delay: 0.4s; }
+.color-favorito:nth-child(5) { animation-delay: 0.5s; }
+
 .mini-color {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
     margin-right: 15px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.mini-color:hover {
+    transform: scale(1.1);
 }
 
 .info-favorito {
@@ -309,11 +556,18 @@ p {
     font-weight: bold;
     font-size: 0.9em;
     margin-bottom: 5px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.codigo-favorito:hover {
+    color: #4ECDC4;
 }
 
 .fecha-favorito {
     font-size: 0.8em;
-    color: #888;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .acciones-favorito {
@@ -322,59 +576,524 @@ p {
 }
 
 .btn-accion {
-    background: none;
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     cursor: pointer;
-    padding: 5px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-size: 1em;
+    color: white;
+    backdrop-filter: blur(5px);
 }
 
 .btn-accion:hover {
-    background: #f0f0f0;
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
 }
 
 .panel-actions {
     padding: 15px;
-    border-top: 1px solid #e0e0e0;
-    background: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(44, 62, 80, 0.9);
 }
 
 .limpiar-btn {
     width: 100%;
-    background: #6c757d;
+    background: linear-gradient(45deg, #E74C3C, #C0392B);
     color: white;
     border: none;
     padding: 12px;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-weight: bold;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.modo-navideno .limpiar-btn {
+    background: linear-gradient(45deg, #8B0000, #800000);
+}
+
+body.modo-navideno .limpiar-btn:hover {
+    background: linear-gradient(45deg, #800000, #660000);
 }
 
 .limpiar-btn:hover {
-    background: #5a6268;
+    background: linear-gradient(45deg, #C0392B, #A93226);
+    transform: translateY(-2px);
 }
 
-/* Overlay */
+/* ==================== OVERLAY ==================== */
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 999;
     display: none;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .overlay.mostrado {
     display: block;
+    opacity: 1;
 }
 
-/* Animaciones */
+/* ==================== PARTÍCULAS ==================== */
+.particulas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particula {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: descender 6s infinite linear;
+}
+
+@keyframes descender {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Partículas Navideñas */
+.particulas-navidenas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    display: none;
+}
+
+body.modo-navideno .particulas-navidenas {
+    display: block;
+}
+
+.particula-navidena {
+    position: absolute;
+    font-size: 1.2em;
+    animation: descenderNavideno 8s infinite linear;
+    text-shadow: 0 0 10px currentColor;
+}
+
+@keyframes descenderNavideno {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Colores de partículas navideñas */
+.particula-navidena:nth-child(6n+1) { color: #C41E3A; } /* Rojo */
+.particula-navidena:nth-child(6n+2) { color: #228B22; } /* Verde */
+.particula-navidena:nth-child(6n+3) { color: #FFD700; } /* Dorado */
+.particula-navidena:nth-child(6n+4) { color: #FFFFFF; } /* Blanco */
+.particula-navidena:nth-child(6n+5) { color: #1E90FF; } /* Azul */
+.particula-navidena:nth-child(6n+6) { color: #FFA500; } /* Naranja */
+
+/* Emojis navideños */
+.particula-navidena:nth-child(12n+1)::before { content: '❄️'; }
+.particula-navidena:nth-child(12n+2)::before { content: '🎄'; }
+.particula-navidena:nth-child(12n+3)::before { content: '🎁'; }
+.particula-navidena:nth-child(12n+4)::before { content: '⭐'; }
+.particula-navidena:nth-child(12n+5)::before { content: '🔔'; }
+.particula-navidena:nth-child(12n+6)::before { content: '🎅'; }
+.particula-navidena:nth-child(12n+7)::before { content: '🤶'; }
+.particula-navidena:nth-child(12n+8)::before { content: '🦌'; }
+.particula-navidena:nth-child(12n+9)::before { content: '🍪'; }
+.particula-navidena:nth-child(12n+10)::before { content: '🥛'; }
+.particula-navidena:nth-child(12n+11)::before { content: '🧦'; }
+.particula-navidena:nth-child(12n+12)::before { content: '✨'; }
+
+/* ==================== PÁGINA PERSONALIZADA ==================== */
+.pagina {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.pagina.activa {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Selección de colores */
+.seleccion-colores {
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+}
+
+.selectores-colores {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.selector-color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.input-color {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: none;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.input-hex {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+    width: 120px;
+    backdrop-filter: blur(5px);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.input-hex:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Etiquetas de paleta */
+.etiquetas-paleta {
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+}
+
+.etiquetas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.etiqueta {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+.etiqueta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.etiqueta input[type="checkbox"] {
+    display: none;
+}
+
+.etiqueta input[type="checkbox"]:checked + span {
+    font-weight: bold;
+    color: #4ECDC4;
+}
+
+.etiqueta input[type="checkbox"]:checked ~ .etiqueta {
+    border-color: #4ECDC4;
+    background: rgba(78, 205, 196, 0.2);
+}
+
+/* Ajustes avanzados */
+.ajustes-avanzados {
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+}
+
+.controles-ajustes {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.control label {
+    font-weight: bold;
+    min-width: 120px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.slider {
+    width: 250px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #E1306C;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Botón generar personalizado */
+.personalizado-generar-btn {
+    background: linear-gradient(45deg, #E1306C, #C13584);
+    margin: 30px auto;
+    display: block;
+}
+
+body.modo-navideno .personalizado-generar-btn {
+    background: linear-gradient(45deg, #228B22, #006400);
+    box-shadow: 0 5px 15px rgba(34, 139, 34, 0.6);
+}
+
+body.modo-navideno .personalizado-generar-btn:hover {
+    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.8);
+}
+
+/* Resultados personalizados */
+.resultados-personalizados {
+    margin-top: 40px;
+}
+
+.paletas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Paletas responsivas - se ajustan según cantidad */
+.paletas-container:has(.paleta-personalizada:nth-child(1)) .paleta-personalizada {
+    grid-column: 1 / -1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.paletas-container:has(.paleta-personalizada:nth-child(2)) .paleta-personalizada {
+    grid-template-columns: 1fr 1fr;
+}
+
+.paletas-container:has(.paleta-personalizada:nth-child(3)) .paleta-personalizada,
+.paletas-container:has(.paleta-personalizada:nth-child(4)) .paleta-personalizada {
+    grid-template-columns: 1fr;
+}
+
+.paleta-personalizada {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+}
+
+.paleta-personalizada:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+.paleta-personalizada h4 {
+    margin: 0 0 20px 0;
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    font-size: 1.2em;
+}
+
+.colores-paleta {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.color-contenedor-personalizado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-personalizado {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-personalizado:hover {
+    transform: scale(1.1);
+}
+
+.color-personalizado::after {
+    content: '📋';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.color-personalizado:hover::after {
+    opacity: 1;
+}
+
+.acciones-color {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-color-accion {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-color-accion:hover {
+    transform: scale(1.1);
+}
+
+.btn-color-accion.likeado {
+    background: #E1306C;
+    color: white;
+}
+
+.codigos-paleta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.codigo-color {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-family: monospace;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.codigo-color:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.mensaje-vacio {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    padding: 40px;
+    font-size: 1.1em;
+}
+
+/* ==================== ANIMACIONES ==================== */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -386,48 +1105,12 @@ p {
     }
 }
 
-/* Efectos de partículas decorativas */
-.particulas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.particula {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(255,255,255,0.5);
-    border-radius: 50%;
-    animation: flotar 6s infinite linear;
-}
-
-@keyframes flotar {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
     .container {
         padding: 20px 15px;
-        margin: 10px;
+        margin: 120px 10px 20px;
+        max-width: 95%;
     }
     
     h1 {
@@ -435,8 +1118,8 @@ p {
     }
     
     .color-box {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
     }
     
     .favoritos-btn-flotante {
@@ -446,7 +1129,60 @@ p {
         font-size: 0.9em;
     }
     
+    .nav-buttons {
+        top: 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .nav-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    
     .panel-favoritos {
         width: 300px;
+    }
+    
+    .generate-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .selectores-colores {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .etiquetas-container {
+        justify-content: center;
+    }
+    
+    .etiqueta {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    
+    .paletas-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .color-personalizado {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .control {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .slider {
+        width: 200px;
+    }
+    
+    .colores-paleta {
+        gap: 10px;
     }
 }
