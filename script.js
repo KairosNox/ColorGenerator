@@ -1,6 +1,8 @@
 // ==================== VARIABLES GLOBALES ====================
 let favoritos = JSON.parse(localStorage.getItem('colorFavoritos')) || [];
 let modoOscuro = localStorage.getItem('modoOscuro') === 'true';
+let modoFondoActual = localStorage.getItem('modoFondo') || 'rendimiento';
+let fondoActual = null;
 
 // ==================== MODO OSCURO ====================
 function toggleModo() {
@@ -63,7 +65,9 @@ async function generarPaleta() {
     
     // Notificar al fondo
     const colores = Array.from(document.querySelectorAll('.color-info')).map(c => c.textContent);
-    if (window.fondoActual) window.fondoActual.reaccionarGenerarPaleta(colores);
+    if (fondoActual && fondoActual.reaccionarGenerarPaleta) {
+        fondoActual.reaccionarGenerarPaleta(colores);
+    }
 }
 
 function crearElementoColor(colorHex, contenedor) {
@@ -241,7 +245,9 @@ function toggleFavoritos() {
 function copiarColor(hexCode) {
     navigator.clipboard.writeText(hexCode).then(() => {
         mostrarMensaje(`¡Copiado! ${hexCode}`);
-        if (window.fondoActual) window.fondoActual.reaccionarCopiarColor(hexCode);
+        if (fondoActual && fondoActual.reaccionarCopiarColor) {
+            fondoActual.reaccionarCopiarColor(hexCode);
+        }
     });
 }
 
@@ -513,7 +519,7 @@ function mostrarResultadosPersonalizados(paletas) {
     });
     
     const coloresGenerados = paletas.flatMap(p=>p.colores);
-    if(window.fondoActual) window.fondoActual.reaccionarGenerarPaleta(coloresGenerados);
+    if(fondoActual && fondoActual.reaccionarGenerarPaleta) fondoActual.reaccionarGenerarPaleta(coloresGenerados);
     mostrarMensaje(`✅ Generadas ${paletas.length} paletas personalizadas`);
 }
 
@@ -536,9 +542,7 @@ function crearParticulas() {
     }
 }
 
-// ==================== SISTEMA DE FONDOS DINÁMICOS ====================
-let modoFondoActual = localStorage.getItem('modoFondo') || 'rendimiento';
-let fondoActual = null;
+// ==================== CLASES DE FONDOS ====================
 
 class FondoBase {
     constructor(canvas) {
@@ -547,176 +551,297 @@ class FondoBase {
         this.activo = true;
         this.frameId = null;
         this.ajustarTamaño();
-        window.addEventListener('resize',()=>this.ajustarTamaño());
+        window.addEventListener('resize', () => this.ajustarTamaño());
     }
-    ajustarTamaño() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; }
+    
+    ajustarTamaño() { 
+        this.canvas.width = window.innerWidth; 
+        this.canvas.height = window.innerHeight; 
+    }
+    
     reaccionarGenerarPaleta(colores) {}
     reaccionarCopiarColor(color) {}
-    reaccionarMouse(x,y) {}
-    detener() { if(this.frameId) cancelAnimationFrame(this.frameId); this.activo=false; }
+    reaccionarMouse(x, y) {}
+    
+    detener() { 
+        if (this.frameId) cancelAnimationFrame(this.frameId); 
+        this.activo = false; 
+    }
 }
 
 class FondoRendimiento extends FondoBase {
     constructor(canvas) {
         super(canvas);
-        this.hue=0;
-        this.particulas=[];
-        for(let i=0;i<30;i++){
-            this.particulas.push({
-                x:Math.random()*this.canvas.width, y:Math.random()*this.canvas.height,
-                radio:Math.random()*2+1, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5,
-                opacidad:Math.random()*0.3+0.2
-            });
-        }
+        this.hue = 0;
+        this.particulas = [];
+        this.initParticulas();
         this.animar();
     }
-    ajustarTamaño() { super.ajustarTamaño(); this.particulas.forEach(p=>{p.x=Math.random()*this.canvas.width; p.y=Math.random()*this.canvas.height;}); }
+    
+    initParticulas() {
+        for(let i = 0; i < 30; i++){
+            this.particulas.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                radio: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                opacidad: Math.random() * 0.3 + 0.2
+            });
+        }
+    }
+    
+    ajustarTamaño() { 
+        super.ajustarTamaño(); 
+        this.initParticulas();
+    }
+    
     animar() {
         if(!this.activo) return;
-        this.hue=(this.hue+0.3)%360;
-        const grad = this.ctx.createLinearGradient(0,0,this.canvas.width,this.canvas.height);
-        grad.addColorStop(0,`hsl(${this.hue},70%,15%)`);
-        grad.addColorStop(0.5,`hsl(${this.hue+40},70%,20%)`);
-        grad.addColorStop(1,`hsl(${this.hue+80},70%,10%)`);
-        this.ctx.fillStyle=grad;
-        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
-        this.particulas.forEach(p=>{
+        this.hue = (this.hue + 0.3) % 360;
+        
+        const grad = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+        grad.addColorStop(0, `hsl(${this.hue}, 70%, 15%)`);
+        grad.addColorStop(0.5, `hsl(${this.hue + 40}, 70%, 20%)`);
+        grad.addColorStop(1, `hsl(${this.hue + 80}, 70%, 10%)`);
+        
+        this.ctx.fillStyle = grad;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particulas.forEach(p => {
             this.ctx.beginPath();
-            this.ctx.arc(p.x,p.y,p.radio,0,Math.PI*2);
-            this.ctx.fillStyle=`rgba(255,255,255,${p.opacidad})`;
+            this.ctx.arc(p.x, p.y, p.radio, 0, Math.PI * 2);
+            this.ctx.fillStyle = `rgba(255, 255, 255, ${p.opacidad})`;
             this.ctx.fill();
-            p.x+=p.vx; p.y+=p.vy;
-            if(p.x<0) p.x=this.canvas.width;
-            if(p.x>this.canvas.width) p.x=0;
-            if(p.y<0) p.y=this.canvas.height;
-            if(p.y>this.canvas.height) p.y=0;
+            
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            if(p.x < 0) p.x = this.canvas.width;
+            if(p.x > this.canvas.width) p.x = 0;
+            if(p.y < 0) p.y = this.canvas.height;
+            if(p.y > this.canvas.height) p.y = 0;
         });
-        this.frameId=requestAnimationFrame(()=>this.animar());
+        
+        this.frameId = requestAnimationFrame(() => this.animar());
     }
+    
     reaccionarGenerarPaleta(colores) {
-        this.ctx.fillStyle='rgba(255,255,255,0.3)';
-        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        setTimeout(() => {}, 100);
+    }
+    
+    reaccionarCopiarColor(color) {
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
 
 class FondoTintaElectrica extends FondoBase {
     constructor(canvas) {
         super(canvas);
-        this.ondas=[];
-        this.particulas=[];
-        this.tiempo=0;
-        this.mouseX=this.canvas.width/2;
-        this.mouseY=this.canvas.height/2;
-        for(let i=0;i<5;i++){
-            this.ondas.push({
-                amplitud:30+Math.random()*40, frecuencia:0.005+Math.random()*0.01,
-                velocidad:0.01+Math.random()*0.02, fase:Math.random()*Math.PI*2,
-                offsetY:(i/5)*this.canvas.height, color:`hsl(${Math.random()*60+200},80%,60%)`
-            });
-        }
-        for(let i=0;i<100;i++){
-            this.particulas.push({
-                x:Math.random()*this.canvas.width, y:Math.random()*this.canvas.height,
-                vx:(Math.random()-0.5)*1.5, vy:(Math.random()-0.5)*1.5,
-                radio:Math.random()*3+1, color:`hsl(${Math.random()*60+200},100%,70%)`,
-                alpha:Math.random()*0.6+0.2, trail:[]
-            });
-        }
+        this.ondas = [];
+        this.particulas = [];
+        this.tiempo = 0;
+        this.mouseX = this.canvas.width / 2;
+        this.mouseY = this.canvas.height / 2;
+        this.initSistema();
         this.animar();
     }
-    ajustarTamaño() { super.ajustarTamaño(); this.ondas.forEach((o,i)=>o.offsetY=(i/this.ondas.length)*this.canvas.height); }
+    
+    initSistema() {
+        // Ondas líquidas
+        for(let i = 0; i < 5; i++){
+            this.ondas.push({
+                amplitud: 30 + Math.random() * 40,
+                frecuencia: 0.005 + Math.random() * 0.01,
+                velocidad: 0.01 + Math.random() * 0.02,
+                fase: Math.random() * Math.PI * 2,
+                offsetY: (i / 5) * this.canvas.height,
+                color: `hsl(${Math.random() * 60 + 200}, 80%, 60%)`
+            });
+        }
+        
+        // Partículas brillantes
+        for(let i = 0; i < 100; i++){
+            this.particulas.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                radio: Math.random() * 3 + 1,
+                color: `hsl(${Math.random() * 60 + 200}, 100%, 70%)`,
+                alpha: Math.random() * 0.6 + 0.2,
+                trail: []
+            });
+        }
+    }
+    
+    ajustarTamaño() { 
+        super.ajustarTamaño(); 
+        this.ondas.forEach((onda, i) => {
+            onda.offsetY = (i / this.ondas.length) * this.canvas.height;
+        });
+    }
+    
     animar() {
         if(!this.activo) return;
-        this.tiempo+=0.02;
-        this.ctx.fillStyle='rgba(10,10,30,0.15)';
-        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
-        // Ondas
-        this.ondas.forEach(onda=>{
+        this.tiempo += 0.02;
+        
+        // Fondo semitransparente para efecto estela
+        this.ctx.fillStyle = 'rgba(10, 10, 30, 0.15)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Dibujar ondas
+        this.ondas.forEach(onda => {
             this.ctx.beginPath();
-            for(let x=0;x<this.canvas.width;x+=10){
-                const y=onda.offsetY+Math.sin(x*onda.frecuencia+this.tiempo*onda.velocidad)*onda.amplitud+Math.cos(x*0.003+this.tiempo*0.005)*15;
-                if(x===0) this.ctx.moveTo(x,y);
-                else this.ctx.lineTo(x,y);
+            for(let x = 0; x < this.canvas.width; x += 10){
+                const y = onda.offsetY + 
+                         Math.sin(x * onda.frecuencia + this.tiempo * onda.velocidad) * onda.amplitud +
+                         Math.cos(x * 0.003 + this.tiempo * 0.005) * 15;
+                if(x === 0) this.ctx.moveTo(x, y);
+                else this.ctx.lineTo(x, y);
             }
-            this.ctx.strokeStyle=onda.color;
-            this.ctx.lineWidth=3;
-            this.ctx.shadowBlur=15;
-            this.ctx.shadowColor=onda.color;
+            this.ctx.strokeStyle = onda.color;
+            this.ctx.lineWidth = 3;
+            this.ctx.shadowBlur = 15;
+            this.ctx.shadowColor = onda.color;
             this.ctx.stroke();
         });
-        // Partículas
-        this.particulas.forEach(p=>{
-            for(let i=0;i<p.trail.length;i++){
-                const pos=p.trail[i];
+        
+        // Dibujar partículas
+        this.particulas.forEach(p => {
+            // Dibujar estela
+            for(let i = 0; i < p.trail.length; i++){
+                const pos = p.trail[i];
                 this.ctx.beginPath();
-                this.ctx.arc(pos.x,pos.y,p.radio*0.7,0,Math.PI*2);
-                this.ctx.fillStyle=`rgba(255,255,255,${p.alpha*(i/p.trail.length)*0.5})`;
+                this.ctx.arc(pos.x, pos.y, p.radio * 0.7, 0, Math.PI * 2);
+                this.ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * (i / p.trail.length) * 0.5})`;
                 this.ctx.fill();
             }
+            
+            // Dibujar partícula principal
             this.ctx.beginPath();
-            this.ctx.arc(p.x,p.y,p.radio,0,Math.PI*2);
-            this.ctx.fillStyle=p.color;
-            this.ctx.shadowBlur=10;
-            this.ctx.shadowColor=p.color;
+            this.ctx.arc(p.x, p.y, p.radio, 0, Math.PI * 2);
+            this.ctx.fillStyle = p.color;
+            this.ctx.shadowBlur = 10;
+            this.ctx.shadowColor = p.color;
             this.ctx.fill();
-            p.trail.unshift({x:p.x,y:p.y});
-            if(p.trail.length>5) p.trail.pop();
-            p.x+=p.vx; p.y+=p.vy;
-            if(p.x<0){p.x=0; p.vx*=-0.9;}
-            if(p.x>this.canvas.width){p.x=this.canvas.width; p.vx*=-0.9;}
-            if(p.y<0){p.y=0; p.vy*=-0.9;}
-            if(p.y>this.canvas.height){p.y=this.canvas.height; p.vy*=-0.9;}
-            const dx=p.x-this.mouseX, dy=p.y-this.mouseY, dist=Math.hypot(dx,dy);
-            if(dist<150){const fuerza=(150-dist)/150*0.5; p.vx+=dx*fuerza*0.01; p.vy+=dy*fuerza*0.01;}
+            
+            // Guardar trail
+            p.trail.unshift({x: p.x, y: p.y});
+            if(p.trail.length > 5) p.trail.pop();
+            
+            // Mover partícula
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            // Rebote suave en bordes
+            if(p.x < 0){ p.x = 0; p.vx *= -0.9; }
+            if(p.x > this.canvas.width){ p.x = this.canvas.width; p.vx *= -0.9; }
+            if(p.y < 0){ p.y = 0; p.vy *= -0.9; }
+            if(p.y > this.canvas.height){ p.y = this.canvas.height; p.vy *= -0.9; }
+            
+            // Atracción al mouse
+            const dx = p.x - this.mouseX;
+            const dy = p.y - this.mouseY;
+            const dist = Math.hypot(dx, dy);
+            if(dist < 150){
+                const fuerza = (150 - dist) / 150 * 0.5;
+                p.vx += dx * fuerza * 0.01;
+                p.vy += dy * fuerza * 0.01;
+            }
         });
-        this.ctx.shadowBlur=0;
-        this.frameId=requestAnimationFrame(()=>this.animar());
+        
+        this.ctx.shadowBlur = 0;
+        this.frameId = requestAnimationFrame(() => this.animar());
     }
+    
     reaccionarGenerarPaleta(colores) {
-        this.ctx.fillStyle='rgba(255,255,255,0.4)';
-        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+        // Efecto de onda expansiva
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Cambiar colores según paleta
         if(colores && colores.length){
-            this.particulas.forEach((p,i)=>p.color=colores[i%colores.length]);
-            this.ondas.forEach((o,i)=>o.color=colores[i%colores.length]);
+            this.particulas.forEach((p, i) => {
+                p.color = colores[i % colores.length];
+            });
+            this.ondas.forEach((onda, i) => {
+                onda.color = colores[i % colores.length];
+            });
         }
-        this.particulas.forEach(p=>{p.vx+=(Math.random()-0.5)*3; p.vy+=(Math.random()-0.5)*3;});
-        setTimeout(()=>this.particulas.forEach(p=>{p.vx*=0.9; p.vy*=0.9;}),500);
+        
+        // Agitar partículas
+        this.particulas.forEach(p => {
+            p.vx += (Math.random() - 0.5) * 3;
+            p.vy += (Math.random() - 0.5) * 3;
+        });
+        
+        setTimeout(() => {
+            this.particulas.forEach(p => {
+                p.vx *= 0.9;
+                p.vy *= 0.9;
+            });
+        }, 500);
     }
+    
     reaccionarCopiarColor(color) {
-        const x=Math.random()*this.canvas.width, y=Math.random()*this.canvas.height;
+        // Explosión local de color
+        const x = Math.random() * this.canvas.width;
+        const y = Math.random() * this.canvas.height;
         this.ctx.beginPath();
-        this.ctx.arc(x,y,30,0,Math.PI*2);
-        this.ctx.fillStyle=color;
-        this.ctx.shadowBlur=20;
+        this.ctx.arc(x, y, 30, 0, Math.PI * 2);
+        this.ctx.fillStyle = color;
+        this.ctx.shadowBlur = 20;
         this.ctx.fill();
-        setTimeout(()=>this.ctx.shadowBlur=0,200);
+        setTimeout(() => this.ctx.shadowBlur = 0, 200);
     }
-    reaccionarMouse(x,y) { this.mouseX=x; this.mouseY=y; }
+    
+    reaccionarMouse(x, y) {
+        this.mouseX = x;
+        this.mouseY = y;
+    }
 }
+
+// ==================== CONTROLADOR DE FONDOS ====================
 
 function cambiarModoFondo(modo) {
     if(fondoActual) fondoActual.detener();
+    
     const canvas = document.getElementById('canvasFondo');
-    if(modo==='rendimiento') fondoActual = new FondoRendimiento(canvas);
-    else fondoActual = new FondoTintaElectrica(canvas);
+    if(!canvas) return;
+    
+    if(modo === 'rendimiento') {
+        fondoActual = new FondoRendimiento(canvas);
+    } else if(modo === 'tinta') {
+        fondoActual = new FondoTintaElectrica(canvas);
+    }
+    
     localStorage.setItem('modoFondo', modo);
-    document.querySelectorAll('.btn-fondo').forEach(btn=>{
-        if(btn.dataset.fondo===modo) btn.classList.add('activo');
-        else btn.classList.remove('activo');
+    
+    document.querySelectorAll('.btn-fondo').forEach(btn => {
+        if(btn.dataset.fondo === modo) {
+            btn.classList.add('activo');
+        } else {
+            btn.classList.remove('activo');
+        }
     });
 }
 
 function initSelectorFondos() {
-    document.querySelectorAll('.btn-fondo').forEach(btn=>{
-        btn.addEventListener('click',()=>cambiarModoFondo(btn.dataset.fondo));
+    const botones = document.querySelectorAll('.btn-fondo');
+    botones.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modo = btn.dataset.fondo;
+            cambiarModoFondo(modo);
+        });
     });
 }
 
-document.addEventListener('mousemove',(e)=>{
-    if(fondoActual && fondoActual.reaccionarMouse) fondoActual.reaccionarMouse(e.clientX,e.clientY);
-});
-
-// ==================== INICIALIZACIÓN PRINCIPAL ====================
+// ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     crearParticulas();
     aplicarModo();
@@ -727,4 +852,11 @@ document.addEventListener('DOMContentLoaded', function() {
     configurarSliders();
     initSelectorFondos();
     cambiarModoFondo(modoFondoActual);
+    
+    // Evento de mouse para el fondo
+    document.addEventListener('mousemove', (e) => {
+        if(fondoActual && fondoActual.reaccionarMouse) {
+            fondoActual.reaccionarMouse(e.clientX, e.clientY);
+        }
+    });
 });
