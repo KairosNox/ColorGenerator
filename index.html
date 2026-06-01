@@ -7,14 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Canvas para fondo dinámico -->
+    <canvas id="canvasFondo"></canvas>
+    
+    <!-- Selector de modos de fondo -->
+    <div class="selector-fondos">
+        <button class="btn-fondo activo" data-fondo="rendimiento">⚡ Económico</button>
+        <button class="btn-fondo" data-fondo="tinta">🎨 Tinta Eléctrica</button>
+    </div>
+    
     <!-- Botones flotantes en esquina superior -->
     <button onclick="toggleFavoritos()" class="favoritos-btn-flotante">
         ❤️ Favoritos
     </button>
     
-    <!-- Botón Modo Claro/Oscuro -->
+    <!-- Botón Modo Oscuro -->
     <button onclick="toggleModo()" class="modo-btn">
-        🌙 Modo Navideño
+        🌙 Modo Oscuro
     </button>
     
     <div class="nav-buttons">
@@ -152,9 +161,6 @@
 
     <!-- Overlay para cerrar panel -->
     <div id="overlay" class="overlay" onclick="toggleFavoritos()"></div>
-
-    <!-- Contenedor para partículas navideñas -->
-    <div id="particulasNavidenas" class="particulas-navidenas"></div>
 
     <script src="script.js"></script>
 </body>
