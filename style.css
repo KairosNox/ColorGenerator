@@ -15,15 +15,9 @@ body {
     transition: all 0.5s ease;
 }
 
-/* ==================== MODO NAVIDEÑO ==================== */
-body.modo-navideno {
-    background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
-    animation: fondoNavideno 10s ease infinite;
-}
-
-@keyframes fondoNavideno {
-    0%, 100% { background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); }
-    50% { background: linear-gradient(135deg, #b21f1f 0%, #fdbb2d 50%, #1a2a6c 100%); }
+/* ==================== MODO OSCURO ==================== */
+body.modo-oscuro {
+    background: linear-gradient(135deg, #0f1a2b 0%, #1a365d 100%);
 }
 
 /* ==================== BOTONES FLOTANTES ==================== */
@@ -41,14 +35,13 @@ body.modo-navideno {
     font-weight: bold;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
-    z-index: 100;
+    z-index: 1000;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-body.modo-navideno .favoritos-btn-flotante {
+body.modo-oscuro .favoritos-btn-flotante {
     background: linear-gradient(45deg, #C41E3A, #8B0000);
-    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.6);
 }
 
 .favoritos-btn-flotante:hover {
@@ -56,7 +49,6 @@ body.modo-navideno .favoritos-btn-flotante {
     box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
 }
 
-/* Botón Modo Claro/Oscuro */
 .modo-btn {
     position: fixed;
     top: 20px;
@@ -71,26 +63,20 @@ body.modo-navideno .favoritos-btn-flotante {
     font-weight: bold;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    z-index: 100;
+    z-index: 1000;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-body.modo-navideno .modo-btn {
-    background: linear-gradient(45deg, #228B22, #006400);
-    box-shadow: 0 5px 15px rgba(34, 139, 34, 0.6);
+body.modo-oscuro .modo-btn {
+    background: linear-gradient(45deg, #4A5568, #2D3748);
 }
 
 .modo-btn:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
 }
 
-body.modo-navideno .modo-btn:hover {
-    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.8);
-}
-
-/* ==================== NAVEGACIÓN CENTRADA ==================== */
+/* ==================== NAVEGACIÓN ==================== */
 .nav-buttons {
     position: fixed;
     top: 20px;
@@ -98,7 +84,7 @@ body.modo-navideno .modo-btn:hover {
     transform: translateX(-50%);
     display: flex;
     gap: 15px;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .nav-btn {
@@ -115,49 +101,29 @@ body.modo-navideno .modo-btn:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-body.modo-navideno .nav-btn {
+body.modo-oscuro .nav-btn {
     background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 215, 0, 0.5);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-btn:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
 }
 
 .nav-btn.activo {
     background: linear-gradient(45deg, #FF6B6B, #EE5A24);
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
 }
 
-body.modo-navideno .nav-btn.activo {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
-    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.6);
+body.modo-oscuro .nav-btn.activo {
+    background: linear-gradient(45deg, #E53E3E, #C53030);
 }
 
-.principal-btn.activo {
-    background: linear-gradient(45deg, #FF6B6B, #EE5A24);
-}
-
-body.modo-navideno .principal-btn.activo {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
-}
-
-.personalizado-btn.activo {
-    background: linear-gradient(45deg, #4ECDC4, #45B7D1);
-}
-
-body.modo-navideno .personalizado-btn.activo {
-    background: linear-gradient(45deg, #228B22, #006400);
-}
-
-/* ==================== CONTAINER PRINCIPAL ==================== */
+/* ==================== CONTAINER ==================== */
 .container {
     text-align: center;
     max-width: 900px;
-    margin: 100px auto 20px;
+    margin: 120px auto 20px;
     background: rgba(255, 255, 255, 0.08);
     padding: 40px 30px;
     border-radius: 25px;
@@ -169,43 +135,9 @@ body.modo-navideno .personalizado-btn.activo {
     transition: all 0.5s ease;
 }
 
-body.modo-navideno .container {
+body.modo-oscuro .container {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
-}
-
-/* Efectos de brillo navideño */
-body.modo-navideno .container::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #C41E3A, #228B22, #FFD700, #C41E3A);
-    border-radius: 27px;
-    z-index: -1;
-    animation: brilloBorde 3s linear infinite;
-    background-size: 400%;
-}
-
-@keyframes brilloBorde {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-body.modo-navideno .container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 25px;
-    z-index: -1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ==================== TIPOGRAFÍA ==================== */
@@ -217,35 +149,21 @@ h1 {
     font-size: 2.5em;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    transition: all 0.5s ease;
 }
 
-body.modo-navideno h1 {
-    background: linear-gradient(45deg, #C41E3A, #228B22, #FFD700);
+body.modo-oscuro h1 {
+    background: linear-gradient(45deg, #E53E3E, #3182CE, #38A169);
     -webkit-background-clip: text;
     background-clip: text;
-    animation: tituloNavideno 3s ease-in-out infinite;
-}
-
-@keyframes tituloNavideno {
-    0%, 100% { filter: hue-rotate(0deg); }
-    50% { filter: hue-rotate(180deg); }
 }
 
 p {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.1em;
     margin-bottom: 30px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    transition: all 0.5s ease;
 }
 
-body.modo-navideno p {
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-/* ==================== PALETA DE COLORES ==================== */
+/* ==================== PALETA ==================== */
 .paleta {
     display: flex;
     justify-content: center;
@@ -273,9 +191,7 @@ body.modo-navideno p {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 3px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 
-        0 8px 25px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
     position: relative;
     overflow: hidden;
 }
@@ -289,7 +205,6 @@ body.modo-navideno p {
     font-size: 1.8em;
     opacity: 0;
     transition: opacity 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .color-box:hover::after {
@@ -298,9 +213,6 @@ body.modo-navideno p {
 
 .color-box:hover {
     transform: scale(1.1) rotate(2deg);
-    box-shadow: 
-        0 12px 35px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 .color-info {
@@ -313,7 +225,6 @@ body.modo-navideno p {
     border-radius: 25px;
     border: 1px solid rgba(255,255,255,0.3);
     backdrop-filter: blur(10px);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 /* ==================== BOTONES ==================== */
@@ -334,13 +245,8 @@ body.modo-navideno p {
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-body.modo-navideno .generate-btn {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
-    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.6);
-}
-
-body.modo-navideno .generate-btn:hover {
-    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.8);
+body.modo-oscuro .generate-btn {
+    background: linear-gradient(45deg, #E53E3E, #C53030);
 }
 
 .generate-btn::before {
@@ -360,14 +266,9 @@ body.modo-navideno .generate-btn:hover {
 
 .generate-btn:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(255,107,107,0.6);
 }
 
-.generate-btn:active {
-    transform: translateY(-1px);
-}
-
-/* ==================== MENSAJES ==================== */
+/* ==================== MENSAJE ==================== */
 .mensaje {
     margin-top: 20px;
     padding: 15px;
@@ -384,10 +285,9 @@ body.modo-navideno .generate-btn:hover {
     display: block;
     background: linear-gradient(45deg, rgba(76,175,80,0.8), rgba(69,160,73,0.8));
     color: white;
-    box-shadow: 0 5px 15px rgba(76,175,80,0.3);
 }
 
-/* ==================== BOTONES DE LIKE ==================== */
+/* ==================== LIKE ==================== */
 .btn-like {
     background: rgba(255, 255, 255, 0.9);
     border: none;
@@ -399,12 +299,10 @@ body.modo-navideno .generate-btn:hover {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     margin-top: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
 }
 
 .btn-like:hover {
     transform: scale(1.1);
-    background: white;
 }
 
 .btn-like.likeado {
@@ -413,7 +311,7 @@ body.modo-navideno .generate-btn:hover {
     transform: scale(1.1);
 }
 
-/* ==================== PANEL DE FAVORITOS ==================== */
+/* ==================== PANEL FAVORITOS ==================== */
 .panel-favoritos {
     position: fixed;
     top: 0;
@@ -432,9 +330,8 @@ body.modo-navideno .generate-btn:hover {
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-body.modo-navideno .panel-favoritos {
-    background: rgba(139, 0, 0, 0.95);
-    border-right: 1px solid rgba(255, 215, 0, 0.3);
+body.modo-oscuro .panel-favoritos {
+    background: rgba(26, 32, 44, 0.95);
 }
 
 .panel-favoritos.abierto {
@@ -450,16 +347,10 @@ body.modo-navideno .panel-favoritos {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(10px);
 }
 
-body.modo-navideno .panel-header {
-    background: linear-gradient(45deg, #C41E3A, #8B0000);
-}
-
-.panel-header h3 {
-    margin: 0;
-    font-size: 1.3em;
+body.modo-oscuro .panel-header {
+    background: linear-gradient(45deg, #2D3748, #4A5568);
 }
 
 .cerrar-btn {
@@ -468,13 +359,7 @@ body.modo-navideno .panel-header {
     color: white;
     font-size: 2em;
     cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s;
 }
 
 .cerrar-btn:hover {
@@ -488,10 +373,6 @@ body.modo-navideno .panel-header {
     background: rgba(52, 73, 94, 0.8);
 }
 
-body.modo-navideno .lista-favoritos {
-    background: rgba(178, 34, 34, 0.8);
-}
-
 .color-favorito {
     display: flex;
     align-items: center;
@@ -499,18 +380,7 @@ body.modo-navideno .lista-favoritos {
     margin-bottom: 10px;
     padding: 12px;
     border-radius: 15px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    animation: slideInFavorito 0.5s ease forwards;
-    opacity: 0;
-    transform: translateX(-30px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-body.modo-navideno .color-favorito {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.3s;
 }
 
 .color-favorito:hover {
@@ -518,29 +388,14 @@ body.modo-navideno .color-favorito {
     background: rgba(255, 255, 255, 0.15);
 }
 
-@keyframes slideInFavorito {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Animación escalonada para favoritos */
-.color-favorito:nth-child(1) { animation-delay: 0.1s; }
-.color-favorito:nth-child(2) { animation-delay: 0.2s; }
-.color-favorito:nth-child(3) { animation-delay: 0.3s; }
-.color-favorito:nth-child(4) { animation-delay: 0.4s; }
-.color-favorito:nth-child(5) { animation-delay: 0.5s; }
-
 .mini-color {
     width: 45px;
     height: 45px;
     border-radius: 10px;
     margin-right: 15px;
     border: 2px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
     cursor: pointer;
+    transition: transform 0.3s;
 }
 
 .mini-color:hover {
@@ -554,15 +409,8 @@ body.modo-navideno .color-favorito {
 
 .codigo-favorito {
     font-weight: bold;
-    font-size: 0.9em;
-    margin-bottom: 5px;
     color: white;
     cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.codigo-favorito:hover {
-    color: #4ECDC4;
 }
 
 .fecha-favorito {
@@ -581,10 +429,8 @@ body.modo-navideno .color-favorito {
     cursor: pointer;
     padding: 8px;
     border-radius: 6px;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    font-size: 1em;
+    transition: all 0.3s;
     color: white;
-    backdrop-filter: blur(5px);
 }
 
 .btn-accion:hover {
@@ -606,22 +452,10 @@ body.modo-navideno .color-favorito {
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     font-weight: bold;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-body.modo-navideno .limpiar-btn {
-    background: linear-gradient(45deg, #8B0000, #800000);
-}
-
-body.modo-navideno .limpiar-btn:hover {
-    background: linear-gradient(45deg, #800000, #660000);
 }
 
 .limpiar-btn:hover {
-    background: linear-gradient(45deg, #C0392B, #A93226);
     transform: translateY(-2px);
 }
 
@@ -645,7 +479,7 @@ body.modo-navideno .limpiar-btn:hover {
     opacity: 1;
 }
 
-/* ==================== PARTÍCULAS ==================== */
+/* ==================== PARTÍCULAS NEUTRAS ==================== */
 .particulas {
     position: fixed;
     top: 0;
@@ -667,82 +501,16 @@ body.modo-navideno .limpiar-btn:hover {
 
 @keyframes descender {
     0% {
-        transform: translateY(-100px) translateX(0) rotate(0deg);
+        transform: translateY(-100px) translateX(0);
         opacity: 0;
     }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
     100% {
-        transform: translateY(100vh) translateX(100px) rotate(360deg);
+        transform: translateY(100vh) translateX(100px);
         opacity: 0;
     }
 }
-
-/* Partículas Navideñas */
-.particulas-navidenas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    display: none;
-}
-
-body.modo-navideno .particulas-navidenas {
-    display: block;
-}
-
-.particula-navidena {
-    position: absolute;
-    font-size: 1.2em;
-    animation: descenderNavideno 8s infinite linear;
-    text-shadow: 0 0 10px currentColor;
-}
-
-@keyframes descenderNavideno {
-    0% {
-        transform: translateY(-100px) translateX(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) translateX(100px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* Colores de partículas navideñas */
-.particula-navidena:nth-child(6n+1) { color: #C41E3A; } /* Rojo */
-.particula-navidena:nth-child(6n+2) { color: #228B22; } /* Verde */
-.particula-navidena:nth-child(6n+3) { color: #FFD700; } /* Dorado */
-.particula-navidena:nth-child(6n+4) { color: #FFFFFF; } /* Blanco */
-.particula-navidena:nth-child(6n+5) { color: #1E90FF; } /* Azul */
-.particula-navidena:nth-child(6n+6) { color: #FFA500; } /* Naranja */
-
-/* Emojis navideños */
-.particula-navidena:nth-child(12n+1)::before { content: '❄️'; }
-.particula-navidena:nth-child(12n+2)::before { content: '🎄'; }
-.particula-navidena:nth-child(12n+3)::before { content: '🎁'; }
-.particula-navidena:nth-child(12n+4)::before { content: '⭐'; }
-.particula-navidena:nth-child(12n+5)::before { content: '🔔'; }
-.particula-navidena:nth-child(12n+6)::before { content: '🎅'; }
-.particula-navidena:nth-child(12n+7)::before { content: '🤶'; }
-.particula-navidena:nth-child(12n+8)::before { content: '🦌'; }
-.particula-navidena:nth-child(12n+9)::before { content: '🍪'; }
-.particula-navidena:nth-child(12n+10)::before { content: '🥛'; }
-.particula-navidena:nth-child(12n+11)::before { content: '🧦'; }
-.particula-navidena:nth-child(12n+12)::before { content: '✨'; }
 
 /* ==================== PÁGINA PERSONALIZADA ==================== */
 .pagina {
@@ -759,8 +527,7 @@ body.modo-navideno .particulas-navidenas {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Selección de colores */
-.seleccion-colores {
+.seleccion-colores, .etiquetas-paleta, .ajustes-avanzados {
     margin: 30px 0;
     padding: 25px;
     background: rgba(255, 255, 255, 0.08);
@@ -790,7 +557,6 @@ body.modo-navideno .particulas-navidenas {
     border: none;
     border-radius: 15px;
     cursor: pointer;
-    background: none;
     border: 3px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -803,24 +569,8 @@ body.modo-navideno .particulas-navidenas {
     font-weight: bold;
     text-align: center;
     width: 120px;
-    backdrop-filter: blur(5px);
     color: white;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.input-hex:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Etiquetas de paleta */
-.etiquetas-paleta {
-    margin: 30px 0;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
 }
 
 .etiquetas-container {
@@ -838,16 +588,13 @@ body.modo-navideno .particulas-navidenas {
     padding: 10px 18px;
     border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    backdrop-filter: blur(5px);
+    transition: all 0.3s;
     color: white;
 }
 
 .etiqueta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .etiqueta input[type="checkbox"] {
@@ -859,41 +606,19 @@ body.modo-navideno .particulas-navidenas {
     color: #4ECDC4;
 }
 
-.etiqueta input[type="checkbox"]:checked ~ .etiqueta {
-    border-color: #4ECDC4;
-    background: rgba(78, 205, 196, 0.2);
-}
-
-/* Ajustes avanzados */
-.ajustes-avanzados {
-    margin: 30px 0;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-}
-
-.controles-ajustes {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    margin-top: 20px;
-}
-
 .control {
     display: flex;
     align-items: center;
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 15px 0;
 }
 
 .control label {
     font-weight: bold;
-    min-width: 120px;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    min-width: 100px;
 }
 
 .slider {
@@ -901,13 +626,6 @@ body.modo-navideno .particulas-navidenas {
     height: 8px;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.2);
-    outline: none;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-
-.slider:hover {
-    opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
@@ -918,26 +636,18 @@ body.modo-navideno .particulas-navidenas {
     background: #E1306C;
     cursor: pointer;
     border: 2px solid white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-/* Botón generar personalizado */
 .personalizado-generar-btn {
     background: linear-gradient(45deg, #E1306C, #C13584);
     margin: 30px auto;
     display: block;
 }
 
-body.modo-navideno .personalizado-generar-btn {
-    background: linear-gradient(45deg, #228B22, #006400);
-    box-shadow: 0 5px 15px rgba(34, 139, 34, 0.6);
+body.modo-oscuro .personalizado-generar-btn {
+    background: linear-gradient(45deg, #3182CE, #2B6CB0);
 }
 
-body.modo-navideno .personalizado-generar-btn:hover {
-    box-shadow: 0 8px 25px rgba(34, 139, 34, 0.8);
-}
-
-/* Resultados personalizados */
 .resultados-personalizados {
     margin-top: 40px;
 }
@@ -949,51 +659,30 @@ body.modo-navideno .personalizado-generar-btn:hover {
     margin-top: 20px;
 }
 
-/* Paletas responsivas - se ajustan según cantidad */
-.paletas-container:has(.paleta-personalizada:nth-child(1)) .paleta-personalizada {
-    grid-column: 1 / -1;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.paletas-container:has(.paleta-personalizada:nth-child(2)) .paleta-personalizada {
-    grid-template-columns: 1fr 1fr;
-}
-
-.paletas-container:has(.paleta-personalizada:nth-child(3)) .paleta-personalizada,
-.paletas-container:has(.paleta-personalizada:nth-child(4)) .paleta-personalizada {
-    grid-template-columns: 1fr;
-}
-
 .paleta-personalizada {
     background: rgba(255, 255, 255, 0.08);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
-    transition: all 0.3s ease;
+    transition: all 0.3s;
 }
 
 .paleta-personalizada:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
 }
 
 .paleta-personalizada h4 {
-    margin: 0 0 20px 0;
     color: white;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    font-size: 1.2em;
+    margin-bottom: 20px;
 }
 
 .colores-paleta {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .color-contenedor-personalizado {
@@ -1009,8 +698,7 @@ body.modo-navideno .personalizado-generar-btn:hover {
     border-radius: 15px;
     cursor: pointer;
     border: 3px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     position: relative;
 }
 
@@ -1026,18 +714,11 @@ body.modo-navideno .personalizado-generar-btn:hover {
     transform: translate(-50%, -50%);
     font-size: 1.5em;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    transition: opacity 0.3s;
 }
 
 .color-personalizado:hover::after {
     opacity: 1;
-}
-
-.acciones-color {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
 }
 
 .btn-color-accion {
@@ -1047,9 +728,7 @@ body.modo-navideno .personalizado-generar-btn:hover {
     width: 35px;
     height: 35px;
     cursor: pointer;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
 }
 
 .btn-color-accion:hover {
@@ -1075,52 +754,74 @@ body.modo-navideno .personalizado-generar-btn:hover {
     font-family: monospace;
     font-size: 0.85em;
     cursor: pointer;
-    transition: all 0.3s ease;
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .codigo-color:hover {
     background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
 }
 
 .mensaje-vacio {
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
     padding: 40px;
-    font-size: 1.1em;
 }
 
-/* ==================== ANIMACIONES ==================== */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ==================== SELECTOR DE FONDOS ==================== */
+.selector-fondos {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 8px 15px;
+    border-radius: 40px;
+    display: flex;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-fondo {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    font-size: 0.8rem;
+}
+
+.btn-fondo:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-fondo.activo {
+    background: linear-gradient(45deg, #E1306C, #C13584);
+    color: white;
+}
+
+#canvasFondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
 }
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .container {
-        padding: 20px 15px;
         margin: 120px 10px 20px;
-        max-width: 95%;
+        padding: 20px 15px;
     }
     
-    h1 {
-        font-size: 2em;
-    }
-    
-    .color-box {
-        width: 100px;
-        height: 100px;
-    }
+    h1 { font-size: 2em; }
+    .color-box { width: 100px; height: 100px; }
     
     .favoritos-btn-flotante {
         top: 10px;
@@ -1129,60 +830,38 @@ body.modo-navideno .personalizado-generar-btn:hover {
         font-size: 0.9em;
     }
     
-    .nav-buttons {
+    .modo-btn {
         top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    
+    .nav-buttons {
+        top: 70px;
         flex-direction: column;
         gap: 10px;
     }
     
     .nav-btn {
-        padding: 10px 20px;
-        font-size: 0.9em;
+        padding: 8px 16px;
+        font-size: 0.85em;
     }
     
-    .panel-favoritos {
-        width: 300px;
+    .selector-fondos {
+        bottom: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        gap: 6px;
     }
     
-    .generate-btn {
-        width: 100%;
-        max-width: 280px;
+    .btn-fondo {
+        padding: 4px 8px;
+        font-size: 0.7rem;
     }
     
-    .selectores-colores {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .etiquetas-container {
-        justify-content: center;
-    }
-    
-    .etiqueta {
-        font-size: 0.9em;
-        padding: 8px 15px;
-    }
-    
-    .paletas-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .color-personalizado {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .control {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .slider {
-        width: 200px;
-    }
-    
-    .colores-paleta {
-        gap: 10px;
-    }
+    .selectores-colores { flex-direction: column; align-items: center; }
+    .paletas-container { grid-template-columns: 1fr; }
+    .control { flex-direction: column; gap: 10px; }
+    .slider { width: 200px; }
 }
